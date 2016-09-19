@@ -6,7 +6,7 @@ import java.util.Map;
 public class Master {
 	private int masterId;
 	private String masterName;
-	private Map<Integer, Slave> slaveMap = new HashMap<Integer, Slave>();
+	private Map<String, Slave> slaveMap = new HashMap<String, Slave>();
 
 	public int getMasterId() {
 		return masterId;
@@ -24,11 +24,11 @@ public class Master {
 		this.masterName = masterName;
 	}
 
-	public Map<Integer, Slave> getSlaveMap() {
+	public Map<String, Slave> getSlaveMap() {
 		return slaveMap;
 	}
 
-	public void setSlaveMap(Map<Integer, Slave> slaveMap) {
+	public void setSlaveMap(Map<String, Slave> slaveMap) {
 		this.slaveMap = slaveMap;
 	}
 
