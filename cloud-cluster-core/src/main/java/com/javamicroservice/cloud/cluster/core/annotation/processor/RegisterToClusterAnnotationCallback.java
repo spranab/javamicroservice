@@ -41,7 +41,7 @@ public class RegisterToClusterAnnotationCallback implements MethodCallback {
 				+ "register";
 		System.out.println("Cluster registration URL: " + registerUrl);
 		try {
-			microservice.setHostname("http://"
+			microservice.setServiceAddress("http://"
 					+ InetAddress.getLocalHost().getHostName() + ":"
 					+ ApplicationProperties.getPropery("server.port"));
 		} catch (UnknownHostException e) {

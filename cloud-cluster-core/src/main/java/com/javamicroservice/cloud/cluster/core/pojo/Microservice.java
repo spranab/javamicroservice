@@ -3,7 +3,7 @@ package com.javamicroservice.cloud.cluster.core.pojo;
 public class Microservice {
 	private String serviceId;
 	private String serviceName;
-	private String hostname;
+	private String serviceAddress;
 	private boolean online;
 	private String fullPath;
 	private String jarFileName;
@@ -24,12 +24,12 @@ public class Microservice {
 		this.serviceName = serviceName;
 	}
 
-	public String getHostname() {
-		return hostname;
+	public String getServiceAddress() {
+		return serviceAddress;
 	}
 
-	public void setHostname(String hostname) {
-		this.hostname = hostname;
+	public void setServiceAddress(String serviceAddress) {
+		this.serviceAddress = serviceAddress;
 	}
 
 	public boolean isOnline() {
