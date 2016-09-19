@@ -19,7 +19,7 @@ public class Registrar {
 	public ResponseEntity<Boolean> register(
 			@RequestBody Microservice microservice) {
 		ResponseEntity<Boolean> responseEntity;
-		System.out.println("Registered new service: "
+		System.out.println("Registering/Updating service: "
 				+ microservice.getServiceName());
 		System.out.println("Full path: " + microservice.getFullPath());
 		System.out.println("Jar file: " + microservice.getJarFileName());
