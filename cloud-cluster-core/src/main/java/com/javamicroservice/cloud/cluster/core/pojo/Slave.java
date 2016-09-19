@@ -4,25 +4,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Slave {
-	private int slaveId;
-	private String slaveName;
+	private String slaveId;
+	private String clusterName;
+	private String hostAddress;
 	private boolean online;
 	private Map<String, Microservice> microserviceMap = new HashMap<String, Microservice>();
 
-	public int getSlaveId() {
+	public String getSlaveId() {
 		return slaveId;
 	}
 
-	public void setSlaveId(int slaveId) {
+	public void setSlaveId(String slaveId) {
 		this.slaveId = slaveId;
 	}
 
-	public String getSlaveName() {
-		return slaveName;
+	public String getClusterName() {
+		return clusterName;
 	}
 
-	public void setSlaveName(String slaveName) {
-		this.slaveName = slaveName;
+	public void setClusterName(String clusterName) {
+		this.clusterName = clusterName;
+	}
+
+	public String getHostAddress() {
+		return hostAddress;
+	}
+
+	public void setHostAddress(String hostAddress) {
+		this.hostAddress = hostAddress;
 	}
 
 	public boolean isOnline() {

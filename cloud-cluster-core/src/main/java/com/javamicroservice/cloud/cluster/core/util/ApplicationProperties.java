@@ -6,7 +6,8 @@ import java.util.Properties;
 
 public class ApplicationProperties {
 	private static Properties properties = new Properties();
-
+	public static final String EXECUTOR_NAME = "javamicroservice_executor_name";
+	public static final String EXECUTOR_FULL_PATH = "javamicroservice_executor_full_path";
 	public static final String EXECUTOR_BASE_PATH = "javamicroservice_executor_app_base_path";
 	static {
 		try {
@@ -14,10 +15,12 @@ public class ApplicationProperties {
 			System.out.println("Current Thread: "
 					+ Thread.currentThread().getName());
 			// String basePath = System.getProperty("user.dir");
+			String fullPath = null;
 			String basePath = null;
 			try {
-				basePath = Thread.currentThread().getContextClassLoader()
+				fullPath = Thread.currentThread().getContextClassLoader()
 						.getResource("").getPath();
+				basePath = fullPath;
 			} catch (Exception e) {
 				String coreJarPath = ApplicationProperties.class
 						.getProtectionDomain().getCodeSource().getLocation()
@@ -26,10 +29,14 @@ public class ApplicationProperties {
 				String parentJarPart = locPart[0];
 				String parentJarFile = parentJarPart.replaceAll("jar:file:/",
 						"");
-				// File file = new File(parentJarFile);
-				basePath = parentJarFile;
+				File file = new File(parentJarFile);
+				properties.put(EXECUTOR_NAME, file.getName());
+				basePath = file.getPath().substring(0,
+						file.getPath().length() - file.getName().length());
+				fullPath = parentJarFile;
 			}
 			properties.put(EXECUTOR_BASE_PATH, basePath);
+			properties.put(EXECUTOR_FULL_PATH, fullPath);
 
 			System.out.println("Looking for property files from base path: "
 					+ basePath);
@@ -40,7 +47,7 @@ public class ApplicationProperties {
 					temp.load(new FileInputStream(fileEntry));
 					properties.putAll(temp);
 					System.out.println("Loaded property file: "
-							+ fileEntry.getPath() + "/" + fileEntry.getName());
+							+ fileEntry.getPath());
 				}
 			}
 			System.out

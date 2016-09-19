@@ -1,6 +1,5 @@
 package com.javamicroservice.cloud.cluster.core.annotation.processor;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -40,27 +39,19 @@ public class RegisterToClusterAnnotationCallback implements MethodCallback {
 				.getPropery("spring.application.name"));
 		String registerUrl = ApplicationProperties.getPropery("cluster_url")
 				+ "register";
-		System.out.println(registerUrl);
+		System.out.println("Cluster registration URL: " + registerUrl);
 		try {
 			microservice.setHostname("http://"
 					+ InetAddress.getLocalHost().getHostName() + ":"
-					+ ApplicationProperties.getPropery("server.port")
-					+ "/register");
+					+ ApplicationProperties.getPropery("server.port"));
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
 		microservice.setFullPath(ApplicationProperties
-				.getPropery(ApplicationProperties.EXECUTOR_BASE_PATH));
-		File file = new File(microservice.getFullPath());
-		// System.out.println(this.getClass().getProtectionDomain()
-		// .getCodeSource().getLocation());
-		// String coreJarPath = this.getClass().getProtectionDomain()
-		// .getCodeSource().getLocation().toString();
-		// String[] locPart = coreJarPath.split("!");
-		// String parentJarPart = locPart[0];
-		// String parentJarFile = parentJarPart.replaceAll("jar:file:/", "");
+				.getPropery(ApplicationProperties.EXECUTOR_FULL_PATH));
 		try {
-			microservice.setJarFileName(file.getName());
+			microservice.setJarFileName(ApplicationProperties
+					.getPropery(ApplicationProperties.EXECUTOR_NAME));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
