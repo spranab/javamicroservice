@@ -1,12 +1,14 @@
 package com.javamicroservice.cloud.cluster.core.pojo;
 
+import java.util.HashMap;
+
 public class Microservice {
 	private String serviceId;
 	private String serviceName;
 	private String serviceAddress;
-	private boolean online;
 	private String fullPath;
 	private String jarFileName;
+	private HashMap<String, Instance> instances = new HashMap<String, Instance>();
 
 	public String getServiceId() {
 		return serviceId;
@@ -32,14 +34,6 @@ public class Microservice {
 		this.serviceAddress = serviceAddress;
 	}
 
-	public boolean isOnline() {
-		return online;
-	}
-
-	public void setOnline(boolean online) {
-		this.online = online;
-	}
-
 	public String getFullPath() {
 		return fullPath;
 	}
@@ -54,6 +48,14 @@ public class Microservice {
 
 	public void setJarFileName(String jarFileName) {
 		this.jarFileName = jarFileName;
+	}
+
+	public HashMap<String, Instance> getInstances() {
+		return instances;
+	}
+
+	public void setInstances(HashMap<String, Instance> instances) {
+		this.instances = instances;
 	}
 
 }

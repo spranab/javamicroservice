@@ -2,7 +2,7 @@ package com.javamicroservice.cloud.cluster.core.annotation.processor;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.util.UUID;
 
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.http.HttpEntity;
@@ -12,6 +12,7 @@ import org.springframework.util.ReflectionUtils.MethodCallback;
 import org.springframework.web.client.RestTemplate;
 
 import com.javamicroservice.cloud.cluster.core.annotation.RegisterToClusterAnnotation;
+import com.javamicroservice.cloud.cluster.core.pojo.Instance;
 import com.javamicroservice.cloud.cluster.core.pojo.Microservice;
 import com.javamicroservice.cloud.cluster.core.util.ApplicationProperties;
 
@@ -34,7 +35,6 @@ public class RegisterToClusterAnnotationCallback implements MethodCallback {
 
 		RestTemplate restTemplate = new RestTemplate();
 		Microservice microservice = new Microservice();
-		microservice.setOnline(true);
 		microservice.setServiceName(ApplicationProperties
 				.getPropery("spring.application.name"));
 		String registerUrl = ApplicationProperties.getPropery("cluster_url")
@@ -42,9 +42,14 @@ public class RegisterToClusterAnnotationCallback implements MethodCallback {
 		System.out.println("Cluster registration URL: " + registerUrl);
 		try {
 			microservice.setServiceAddress("http://"
-					+ InetAddress.getLocalHost().getHostName() + ":"
-					+ ApplicationProperties.getPropery("server.port"));
-		} catch (UnknownHostException e) {
+					+ InetAddress.getLocalHost().getHostName());
+			Instance instance = new Instance();
+			instance.setInstanceId(UUID.randomUUID().toString());
+			instance.setPort(Integer.parseInt(ApplicationProperties
+					.getPropery("server.port")));
+			instance.setOnline(true);
+			microservice.getInstances().put(instance.getInstanceId(), instance);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		microservice.setFullPath(ApplicationProperties
